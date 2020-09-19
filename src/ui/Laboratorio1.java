@@ -288,31 +288,50 @@ public class Laboratorio1{
 		String barrio = "Ferreteria del barrio";
 		String centro = "Ferreteria del centro";
 		String  home= "HomeCenter";
+		String todos= "The prices are the same";
+		String hc= "HomeCenter and Ferreteria del centro";
+		String hb="HomeCenter and Ferreteria del barrio";
+		String cb="Ferreteria del centro and Ferreteria del barrio";
 		String [] esta = new String[name_materials.length];
 		String [] bestpe = new String[name_materials.length];
 		int []  bp= new int[name_materials.length];
+				System.out.println("------------------------------------------------------");
 		for(int i=0; i<pHome.length;i++){
-			for(int j=0; j<pCentro.length;j++){
-				for (int x=0; x<pBarrio.length;x++){
-					if (pHome[i]<pCentro[j]){
-						if (pHome[i]<pBarrio[x]){
-							esta[i]=home;
-							bp[i] = pHome[i];
-							
-						}else{
-							esta[i]=barrio;
-							bp[i] = pHome[i];	
-						}
-					}else if(pCentro[j]<pBarrio[x]){
-						esta[i]=centro;
-						bp[i] = pHome[i];
-						
-					}else{
-						esta[i]=barrio;
-						bp[i] = pHome[i];
-					}
+			if(pHome[i]==pCentro[i]){
+				if(pHome[i]==pBarrio[i]){
+					esta[i]=todos;
+					bp[i] = pHome[i];
 				}
-			}	
+			}
+			if(pHome[i]==pBarrio[i]){
+				esta[i]=hb;
+				bp[i] = pHome[i];
+			}
+			if(pHome[i]==pCentro[i]){
+				esta[i]=hc;
+				bp[i] = pHome[i];
+			}
+			if(pCentro[i]==pBarrio[i]){
+				esta[i]=cb;
+				bp[i] = pCentro[i];
+			}
+			
+			if (pHome[i]<pCentro[i]){
+				if (pHome[i]<pBarrio[i]){
+					esta[i]=home;
+					bp[i] = pHome[i];		
+				}else if(pCentro[i]<pHome[i]){
+					esta[i]=centro;
+					bp[i] = pCentro[i];	
+				}
+			}else if(pCentro[i]<pBarrio[i]){
+				esta[i]=centro;
+				bp[i] = pCentro[i];
+						
+			}else if(pBarrio[i]<pCentro[i]){
+				esta[i]=barrio;
+				bp[i] = pBarrio[i];
+			}
 		}
 		for(int i=0; i<name_materials.length;i++){
 			System.out.println("For the material "+(name_materials[i])+" it is better to buy it in: "+(esta[i])+"el price is: "+(bp[i]));
@@ -350,11 +369,8 @@ public class Laboratorio1{
 	
 	public static String[] typeUtilizationB(int utilization [],int sizeb,String name_materials[]){
 		String [] blackworkk = new String[sizeb];
-		int pos = 0;
 		for (int i=0; i<utilization.length;i++){
-			
 			if(utilization[i]==1){
-				
 				blackworkk [i]= name_materials[i];
 			
 			}
@@ -363,14 +379,10 @@ public class Laboratorio1{
 	}
 	public static String[] typeUtilizationw(int utilization [],int sizew,String name_materials[]){
 		String [] whiteworkk = new String[sizew];
-		int pos = 0;
 		for (int i=0; i<utilization.length;i++){
 			if(utilization[i]==1){
-				pos = i;
+				whiteworkk [i] = name_materials[i];
 			}
-		}
-		for (int i=0; i<whiteworkk.length;i++){
-			whiteworkk [i] = name_materials[pos];
 		}
 		return whiteworkk;
 	}
@@ -379,11 +391,8 @@ public class Laboratorio1{
 		int pos = 0;
 		for (int i=0; i<name_materials.length;i++){
 			if(utilization[i]==1){
-				pos = i;
+				paintingg [i] = name_materials[i];
 			}
-		}
-		for (int i=0; i<paintingg.length;i++){
-			paintingg [i] = name_materials[pos];
 		}
 		return paintingg;
 	}
@@ -399,6 +408,13 @@ public class Laboratorio1{
 		
 		return to;
 	}
+	/**
+	*lee una variable entera, muestra por consola al usuario una lista de cadena String, dependiento el valor de la variable entera.
+	*pre:los array deben tener las listas que el usuario digite.
+	*post: 
+	*@param una lista de cadena de string(name_materials), variable entena,una lista de de cadena de String llamada blackwork,una lista de de cadena de String llamada whitework,una lista de de cadena de String llamada painting.
+	*/
+	
 	public static void typeUtilizationMat(String name_materials[],int type,String blackwork [],String whitework[],String painting[]){
 		Scanner sc = new Scanner(System.in);
 		for (int i=0; i<name_materials.length;i++){
