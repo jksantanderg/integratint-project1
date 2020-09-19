@@ -1,311 +1,417 @@
 import java.util.Scanner;
 public class Laboratorio1{
 	
-	static int [] utilization = new int[3];//size
-	static String [] nameMaterials = new String [3];//size
-	static int [] sizeMaterials = new int [3];//size
-	static int [] priceMaterials = new int [3];
-	static String [] blackWork  = new String[1];//accountantb
-	static String [] whiteWork = new String[1];//accountantw
-	static String [] painting = new String[1];//accountantp
-	static String [] establishments = new String [2];//sizeestab
-	static int [] priceMaterialsB = new int [2];
-	static int [] priceMaterialsW = new int [2];
-	static int [] priceMaterialsP = new int [2];
+	public static final int BLACK_WORK  = 1300000;
+	public static final int WHITE_WORK = 2600000;
+	public static final int PAINTING = 980000;
+	public static final int TOTAL_WORK = BLACK_WORK+WHITE_WORK*PAINTING;
 	
 	public static void main (String[] args){
 		Scanner sc = new Scanner (System.in);
-		
-		readOptions();
-		
-	}
-	
-	public static void readOptions(){
-		Scanner sc = new Scanner (System.in);
-		
-		System.out.println("Welcome to the main menu");
-		int option = 0;
-		do{
-			System.out.println("============");
-			System.out.println("\nOptions Menu");
-			System.out.println("============");
-			System.out.println("1. Enter three character strings");
-			System.out.println("2. Enter the values of each material for each of the establishments");
-			System.out.println("3. Generate the total to be paid for the entire work for each of the establishments");
-			System.out.println("4. Display for each product where it is best to buy it and the value to pay. ");
-			System.out.println("5. Display the products by type of use");
-			System.out.println("6. Exit\n");
-			System.out.println("Enter option (1-6): ");
-			System.out.print("Enter the option: ");
-			option = sc.nextInt();
-			
-			
-			switch(option){
-				case 1:
-					System.out.println("1");
-					
-					sizeArray();
-					enterNameMaterials(nameMaterials);
-					entersizeMaterials(sizeMaterials);
-					enterUtilizationMaterials(utilization);
-					sizeTypeB(utilization);
-					sizeTypeW(utilization);
-					sizeTypeP(utilization);
-					typeUtilizationMaterials(utilization,blackWork,whiteWork,painting,nameMaterials);
-					
-				break;
-
-				case 2:
-					System.out.println("2");
-					//establishmentsSize(sizeestab);
-					establishmentsName(establishments);
-					//toEstablishments(establishments);
-					ePriceBlackWork(establishments,blackWork,priceMaterialsB);
-					ePricePainting(establishments,painting,priceMaterialsP);
-					ePriceWiteWork(establishments,whiteWork,priceMaterialsW);
-				break;
-					
-				case 3:
-				break;
-				
-				case 4:
-				break;
-				
-				case 5:
-					
-					toDeployUtilization(blackWork,whiteWork,painting);
-					
-				break;
-				
-			}	
-		}
-		while(option !=6);
-			System.out.println("Thank you for using this program. Good bye!");
-	}
-
-	public static int sizeTypeB(int utilization []) {
-		for (int i=0; i<nameMaterials.length;i++){
-			
-			int accountantb = 0;
-			if(utilization[i]==1){
-				accountantb = accountantb+1;	
-			}		
-		}
-		return accountantb;
-	}
-	public static int sizeTypeW(int utilization []) {
-		for (int i=0; i<nameMaterials.length;i++){
-			
-			int accountantw = 0;
-			if(utilization[i]==2){
-				accountantw = accountantw+1;	
-			}
-		}
-		return accountantw;
-	}
-	public static int sizeTypeP(int utilization []) {
-		for (int i=0; i<nameMaterials.length;i++){
-			
-			int accountantp = 0;
-			if(utilization[i]==2){
-				accountantp = accountantp+1;	
-			}
-		}
-		return accountantp;
-	}
-	
-	public static int sizeArray() {
-		Scanner sc = new Scanner(System.in);
 		int size = 0;
 		System.out.println("Enter the amount of materials you want to enter");
 		size = sc.nextInt();
+		//1
+		String [] name_materials;
+		int [] size_materials;
+		int [] utilization;
+		name_materials= enterNameMaterials(size);
+		size_materials= entersizeMaterials(size, name_materials);
+		utilization=enterUtilizationMaterials(size,name_materials);
+		//2
+		int [] pHome;
+		int [] pCentro;
+		int [] pBarrio;
+		pHome=HomeCenter(name_materials,size);
+		pCentro=FerreteriadelCentro(name_materials,size);
+		pBarrio=FerreteríadelBarrio(name_materials,size);
+		//3
+		int location;
+		int priceBarrio;
+		int priceCentro;
+		int priceHome;
+		location=PropertyLocation();
+		priceHome=priceHomeCenter(pHome);
+		priceCentro=priceFerreteriadelCentro(pCentro);
+		priceBarrio=priceFerreteriadelBarrio(pBarrio);
+		totalPriceHome(location,priceHome,TOTAL_WORK);
+		totalPriceCentro(location,priceHome,TOTAL_WORK);
+		totalPriceBarrio(location,priceHome,TOTAL_WORK);
+		//4
+		bestPrice(pHome,pBarrio,pCentro,name_materials);
 		
-		return size;
-	}
-	
-	public static void enterNameMaterials(String nameMaterials[]){
-		Scanner sc = new Scanner(System.in);
-		for (int i=0; i<nameMaterials.length;i++){
-			System.out.println("Enter the name of the material "+(i+1)+":");
-			nameMaterials[i] = sc.nextLine();
-		}
-	}
-	
-	public static void entersizeMaterials(int sizeMaterials []){
-		Scanner sc = new Scanner(System.in);
-		for (int i=0; i<nameMaterials.length;i++){
-			System.out.println("Enter the name of the material "+(nameMaterials[i])+":");
-			sizeMaterials[i] = sc.nextInt();
-		}
+		//5
+		int sizeb;
+		int sizew;
+		int sizep;
+		int type;
+		String []blackwork;
+		String []whitework;
+		String []painting;
+		sizeb=sizeBlackWork(utilization);
+		sizew=sizewhiteWork(utilization);
+		sizep=sizePainting(utilization);
+		type=typeUtilizationMaterials();
+		blackwork=typeUtilizationB(utilization,sizeb,name_materials);
+		whitework=typeUtilizationw(utilization,sizew,name_materials);
+		painting=typeUtilizationp(utilization,sizep,name_materials);
+		typeUtilizationMat(name_materials,type,blackwork,whitework,painting);
 	}
 
-	public static void enterUtilizationMaterials(int utilization []){
+	public static String[] enterNameMaterials(int size) {
 		Scanner sc = new Scanner(System.in);
-		for (int i=0; i<nameMaterials.length;i++){
+	
+		String [] name_mat = new String[size];
+		for (int i=0; i<name_mat.length;i++){
+			
+			System.out.println("Enter the name of the material :"+(i+1));
+			name_mat[i] = sc.nextLine();
+		}
+		
+		return name_mat;
+	}
+	
+	public static int[] entersizeMaterials(int size,String name_materials []){
+		Scanner sc = new Scanner(System.in);
+		
+		int [] size_mat = new int[size];
+		for (int i=0; i<size_mat.length;i++){
+			System.out.println("Enter the quantity of the material:"+(name_materials[i]));
+			size_mat[i] = sc.nextInt();
+		}
+		return size_mat;
+	}
+	
+	public static int[] enterUtilizationMaterials(int size,String name_materials []){
+		Scanner sc = new Scanner(System.in);
+		
+		int [] uti = new int[size];
+		for (int i=0; i<uti.length;i++){
 			System.out.println("\nEnter if the material to be entered in for");
 			System.out.println("1. blackwork");
 			System.out.println("2. whiteWork"); 
 			System.out.println("3. painting");
-			System.out.println("of the materials"+(nameMaterials[i])+":");
-			utilization[i] = sc.nextInt();
+			System.out.println("of the materials "+(name_materials[i]));
+			uti[i] = sc.nextInt();
 		}
+		return uti;
+	}
+	//2
+	public static int[] HomeCenter(String name_materials[],int size) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("-----HomeCenter-----");
+		int [] hc = new int[size];
+		for(int i=0; i<hc.length;i++){
+			System.out.println("enter material price: "+(name_materials[i])+" in the HomeCenter");
+			hc[i] = sc.nextInt();
+		}
+		
+		return hc;
+	}
+	public static int[] FerreteriadelCentro(String name_materials[],int size) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("-----Ferreteria del centro-----");
+		int [] fdc = new int [size];
+		for(int i=0; i<fdc.length;i++){
+			System.out.println("enter material price: "+(name_materials[i])+" in the Ferreteria del centro");
+			fdc[i] = sc.nextInt();
+		}
+		
+		return fdc;
+	}
+	public static int[] FerreteríadelBarrio(String name_materials[],int size) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("-----Ferretería del barrio-----");
+		int [] fdb = new int[size];
+		for(int i=0; i<fdb.length;i++){
+			System.out.println("enter material value: "+(name_materials[i])+" in the Ferreteria del barrio");
+			fdb[i] = sc.nextInt();
+		}
+		
+		return fdb;
+	}
+	//3
+	public static int PropertyLocation(){
+		Scanner sc = new Scanner(System.in);
+		int loc = 0;
+		System.out.println("\nPlease enter the location of the property");
+		System.out.println("1. North");
+		System.out.println("2. Center"); 
+		System.out.println("3. South");
+		loc = sc.nextInt();
+		
+		return loc;
 	}
 	
-	public static void typeUtilizationMaterials(int utilization [],String blackWork [],String whiteWork [],String painting [],String nameMaterials[]){
-		for (int i=0; i<nameMaterials.length;i++){
-			for (int j=0; j<1;j++){
-				int pos = 0;
-			
-				if(utilization[i]==1){
-					pos = i;
-					blackWork [j] = nameMaterials[pos];
-				
-				}else if(utilization[i]==2){
-					pos = i;
-					whiteWork [j] = nameMaterials[pos];
-				
-				}else if(utilization[i]==3){
-					pos = i;
-					painting [j] = nameMaterials[pos];
-			
-				}		
-			}
-		}	
+	public static int priceHomeCenter(int pHome []){
+		Scanner sc = new Scanner(System.in);
+		
+		int phc = 0;
+		for(int i=0; i<pHome.length;i++){
+			phc = phc+pHome[i];
+		}
+		return phc;
 	}
-
-	public static void toDeployUtilization(String blackWork[],String whiteWork[],String painting[]){
+	public static int priceFerreteriadelCentro(int pCentro []){
 		Scanner sc = new Scanner(System.in);
 
+		int pfdc = 0;
+		for(int i=0; i<pCentro.length;i++){
+			pfdc = pfdc+pCentro[i];
+		}
+		return pfdc;
+	}
+	public static int priceFerreteriadelBarrio(int pBarrio []){
+		Scanner sc = new Scanner(System.in);
+		
+		int pfdb = 0;
+		for(int i=0; i<pBarrio.length;i++){
+			pfdb = pfdb+pBarrio[i];
+		}
+		return pfdb;
+	}
+	public static void totalPriceHome(int location,int priceHome,int TOTAL_WORK){
+		Scanner sc = new Scanner(System.in);
+		
+		int pth=0;
+		int total=0;
+		if(priceHome<80000){
+			if(location==1){
+				pth= priceHome+120000;
+			}else if(location==2){
+				pth= priceHome+50000;
+			}else if(location==3){
+				pth= priceHome+120000;
+			}
+		}else if(priceHome>=300000){
+			if(location==1){
+				pth= priceHome;
+			}else if(location==2){
+				pth= priceHome;
+			}else if(location==3){
+				pth= priceHome;
+			}
+		}else{
+			if(location==1){
+				pth= priceHome+28000;
+			}else if(location==2){
+				pth= priceHome;
+			}else if(location==3){
+				pth= priceHome+55000;
+			}
+		}
+		total=pth+TOTAL_WORK;
+		System.out.println("The price ------Ferreteria HomeCenter------------ ");
+		System.out.println("The price of work in HomeCenter is: "+pth+" NO DOMICILE");
+		System.out.println("The price of work in HomeCenter is: "+pth);
+		System.out.println("The price of work in HomeCenter IN TOTAL: "+total);
+	}
+	
+	public static void totalPriceCentro(int location,int priceCentro,int TOTAL_WORK){
+		Scanner sc = new Scanner(System.in);
+		
+		int total=0;
+		int ptc=0;
+		if(priceCentro<80000){
+			if(location==1){
+				ptc= priceCentro+120000;
+			}else if(location==2){
+				ptc= priceCentro+50000;
+			}else if(location==3){
+				ptc= priceCentro+120000;
+			}
+		}else if(priceCentro>=300000){
+			if(location==1){
+				ptc= priceCentro;
+			}else if(location==2){
+				ptc= priceCentro;
+			}else if(location==3){
+				ptc= priceCentro;
+			}
+		}else{
+			if(location==1){
+				ptc= priceCentro+28000;
+			}else if(location==2){
+				ptc= priceCentro;
+			}else if(location==3){
+				ptc= priceCentro+55000;
+			}
+		}
+		total=ptc+TOTAL_WORK;
+		System.out.println("The price ------Ferreteria del centro ------------ ");
+		System.out.println("The price of work in Ferreteria del centro is: "+priceCentro+"NO DOMICILE");
+		System.out.println("The price of work in Ferreteria del centro is: "+ptc);
+		System.out.println("The price of work in Ferreteria del centro IN TOTAL: "+total);
+	}
+	public static void totalPriceBarrio(int location,int priceBarrio,int TOTAL_WORK){
+		Scanner sc = new Scanner(System.in);
+		
+		int total=0;
+		int ptb=0;
+		if(priceBarrio<80000){
+			if(location==1){
+				ptb= priceBarrio+120000;
+			}else if(location==2){
+				ptb= priceBarrio+50000;
+			}else if(location==3){
+				ptb= priceBarrio+120000;
+			}
+		}else if(priceBarrio>=300000){
+			if(location==1){
+				ptb= priceBarrio;
+			}else if(location==2){
+				ptb= priceBarrio;
+			}else if(location==3){
+				ptb= priceBarrio;
+			}
+		}else{
+			if(location==1){
+				ptb= priceBarrio+28000;
+			}else if(location==2){
+				ptb= priceBarrio;
+			}else if(location==3){
+				ptb= priceBarrio+55000;
+			}
+		}
+		total = ptb+TOTAL_WORK;
+		System.out.println("The price ------Ferreteria del barrio ------------ ");
+		System.out.println("The price of work in Ferreteria del barrio is: "+priceBarrio+"NO DOMICILE");
+		System.out.println("The price of work in Ferreteria del barrio is: "+ptb);
+		System.out.println("The price of work in Ferreteria del barrio IN TOTAL: "+total);
+	}
+	//4
+	public static void bestPrice(int pHome[],int pBarrio [],int pCentro [],String name_materials []){
+		
+		String barrio = "Ferreteria del barrio";
+		String centro = "Ferreteria del centro";
+		String  home= "HomeCenter";
+		String [] esta = new String[name_materials.length];
+		String [] bestpe = new String[name_materials.length];
+		int []  bp= new int[name_materials.length];
+		for(int i=0; i<pHome.length;i++){
+			for(int j=0; j<pCentro.length;j++){
+				for (int x=0; x<pBarrio.length;x++){
+					if (pHome[i]<pCentro[j]){
+						if (pHome[i]<pBarrio[x]){
+							esta[i]=home;
+							bp[i] = pHome[i];
+							
+						}else{
+							esta[i]=barrio;
+							bp[i] = pHome[i];	
+						}
+					}else if(pCentro[j]<pBarrio[x]){
+						esta[i]=centro;
+						bp[i] = pHome[i];
+						
+					}else{
+						esta[i]=barrio;
+						bp[i] = pHome[i];
+					}
+				}
+			}	
+		}
+		for(int i=0; i<name_materials.length;i++){
+			System.out.println("For the material "+(name_materials[i])+" it is better to buy it in: "+(esta[i])+"el price is: "+(bp[i]));
+		}
+		
+	}
+	//5
+	public static int sizeBlackWork(int utilization []){
+		int sizebw = 0;
+		for (int i=0; i<utilization.length;i++){
+			if(utilization[i]==1){
+				sizebw = sizebw+1;
+			}
+		}
+		return sizebw;
+	}
+	public static int sizewhiteWork(int utilization []){
+		int sizeww = 0;
+		for (int i=0; i<utilization.length;i++){
+			if(utilization[i]==1){
+				sizeww = sizeww+1;
+			}
+		}
+		return sizeww;
+	}
+	public static int sizePainting(int utilization []){
+		int sizepp = 0;
+		for (int i=0; i<utilization.length;i++){
+			if(utilization[i]==1){
+				sizepp = sizepp+1;
+			}
+		}
+		return sizepp;
+	}
+	
+	public static String[] typeUtilizationB(int utilization [],int sizeb,String name_materials[]){
+		String [] blackworkk = new String[sizeb];
+		int pos = 0;
+		for (int i=0; i<utilization.length;i++){
+			
+			if(utilization[i]==1){
+				
+				blackworkk [i]= name_materials[i];
+			
+			}
+		}
+		return blackworkk;
+	}
+	public static String[] typeUtilizationw(int utilization [],int sizew,String name_materials[]){
+		String [] whiteworkk = new String[sizew];
+		int pos = 0;
+		for (int i=0; i<utilization.length;i++){
+			if(utilization[i]==1){
+				pos = i;
+			}
+		}
+		for (int i=0; i<whiteworkk.length;i++){
+			whiteworkk [i] = name_materials[pos];
+		}
+		return whiteworkk;
+	}
+	public static String[] typeUtilizationp(int utilization [],int sizep,String name_materials[]){
+		String [] paintingg = new String[sizep];
+		int pos = 0;
+		for (int i=0; i<name_materials.length;i++){
+			if(utilization[i]==1){
+				pos = i;
+			}
+		}
+		for (int i=0; i<paintingg.length;i++){
+			paintingg [i] = name_materials[pos];
+		}
+		return paintingg;
+	}
+	public static int typeUtilizationMaterials(){
+		Scanner sc = new Scanner(System.in);
+		
 		int to =0;
 		System.out.println("\nwhich use do you want to display");
 		System.out.println("1. blackwork");
 		System.out.println("2. whiteWork"); 
 		System.out.println("3. painting");
 		to = sc.nextInt();
-	
-		if(to==1){
-			System.out.println("The materials of painting are: ");
-			for (int i=0; i<blackWork.length;i++){
-				System.out.println("-"+(blackWork[i]));
+		
+		return to;
+	}
+	public static void typeUtilizationMat(String name_materials[],int type,String blackwork [],String whitework[],String painting[]){
+		Scanner sc = new Scanner(System.in);
+		for (int i=0; i<name_materials.length;i++){
+			if(type==1){
+				System.out.println(blackwork[i]);
 			}
-		
-		}else if(to==2){
-			System.out.println("The materials of painting are: ");
-			for (int i=0; i<whiteWork.length;i++){
-				System.out.println("-"+(whiteWork[i]));
+			if(type==2){
+				System.out.println(whitework[i]);
 			}
-		
-		}else if(to==3){
-			System.out.println("The materials of painting are: ");
-			for (int i=0; i<painting.length;i++){
-				System.out.println("-"+(painting[i]));
+			if(type==3){
+				System.out.println(painting[i]);
 			}
-		
-		}
-	}
-	
-	public static void ePriceBlackWork(String establishments [],String blackWork [],int priceMaterialsB []){
-		Scanner sc = new Scanner(System.in);
-		
-		for (int i=0; i<blackWork.length;i++){
-			
-			System.out.println("Enter the price of the material: "+(blackWork[i]));
-			priceMaterials[i] = sc.nextInt();
-			
-		}
-	}
-	
-	public static void ePriceWiteWork(String establishments [],String whiteWork [],int priceMaterialsW []){
-		Scanner sc = new Scanner(System.in);
-		
-			for (int i=0; i<blackWork.length;i++){
-			
-			System.out.println("Enter the price of the material: "+(blackWork[i]));
-			priceMaterialsW[i] = sc.nextInt();
-			
-		}
-	}
-	
-	public static void ePricePainting(String establishments [],String painting [],int priceMaterialsP []){
-		Scanner sc = new Scanner(System.in);
-		
-		for (int i=0; i<blackWork.length;i++){
-	
-			System.out.println("Enter the price of the material: "+(blackWork[i]));
-			priceMaterialsP[i] = sc.nextInt();
-			
-		}
-	}
-	
-	public static void establishmentsName(String establishments []){
-		Scanner sc = new Scanner(System.in);
-		
-		for(int i=0; i<establishments.length;i++){
-			System.out.println("Enter establishment "+(i+1));
-			establishments[i] = sc.nextLine();
 		}
 	}
 	
 }
-
-
-	
-	/*public static void	toEstablishments(String establishments []){
-		Scanner sc = new Scanner(System.in);
-		int toes = 0;
-		System.out.println("To which establishment you want to enter the price");
-		for (int i=0; i<establishments.length;i++){	
-			System.out.println((i+1)+".  "+(establishments[i]));
-			
-		}
-		toes = sc.nextInt();
-	}*/
-	
-	/**/
-	
-
-	
-	
-	
-		/*/**
-		*obtiene el tamano de un arreglo a partir de un indice.<br>
-		*<b>pre: </b><br>
-		*<b>post:</b> se da el tamaño de un arreglo.<br>
-		@param un numero diferente de null.
-		*/
-		/*public static int establishmentsSize(){
-		Scanner sc = new Scanner(System.in);
-		int sizeestab = 0;
-		System.out.println("Enter how many establishments you want to enter");
-		sizeestab = sc.nextInt();
-		
-		return sizeestab
-		*/
-		
-	
-
-		/*public void enterPriceMaterials(int priceMaterials []){
-			Scanner sc = new Scanner(System.in);
-		
-			for(int i=0; i<establishments.length;i++){
-				for(int i=0; i<nameMaterials.length;i++){
-				System.out.println("Enter the price of material X of establishment X");
-				priceMaterials[] = sc.nextInt();
-				}
-			}
-		
-		
-		
-		}*/
-	
-	
-	
-
-	
-	
-		
-	
-	 
-	
-	
-	
