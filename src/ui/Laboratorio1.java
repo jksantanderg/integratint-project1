@@ -7,6 +7,7 @@ public class Laboratorio1{
 	public static final int TOTAL_WORK = BLACK_WORK+WHITE_WORK*PAINTING;
 	
 	public static void main (String[] args){
+		
 		Scanner sc = new Scanner (System.in);
 		int size = 0;
 		System.out.println("Enter the amount of materials you want to enter");
@@ -57,6 +58,13 @@ public class Laboratorio1{
 		painting=typeUtilizationp(utilization,sizep,name_materials);
 		typeUtilizationMat(name_materials,type,blackwork,whitework,painting);
 	}
+	/**
+	*full the array name_materials.
+	*pre:<b>the user must enter an integer data.</b>
+	*post:<b></b>
+	*@param an array and a variable integer.
+	*@return a array, containing the name of the materials.
+	*/
 
 	public static String[] enterNameMaterials(int size) {
 		Scanner sc = new Scanner(System.in);
@@ -70,7 +78,13 @@ public class Laboratorio1{
 		
 		return name_mat;
 	}
-	
+	/**
+	*full the array size_materials, 
+	*pre:<b>the user must enter an integer data.</b>
+	*post:<b></b>
+	*@param an array and a variable integer.
+	*@return a array, containing the quiantify of the materials.
+	*/
 	public static int[] entersizeMaterials(int size,String name_materials []){
 		Scanner sc = new Scanner(System.in);
 		
@@ -81,13 +95,19 @@ public class Laboratorio1{
 		}
 		return size_mat;
 	}
-	
+	/**
+	*full the array utilization.
+	*<b>pre:<b>the user must enter an integer data.</b>
+	*<b>post:<b></b>
+	*@param an array and a variable integer and a variable integer.
+	*@return a variable int.
+	*/
 	public static int[] enterUtilizationMaterials(int size,String name_materials []){
 		Scanner sc = new Scanner(System.in);
 		
 		int [] uti = new int[size];
 		for (int i=0; i<uti.length;i++){
-			System.out.println("\nEnter if the material to be entered in for");
+			System.out.println("Enter if the material to be entered in for");
 			System.out.println("1. blackwork");
 			System.out.println("2. whiteWork"); 
 			System.out.println("3. painting");
@@ -97,6 +117,13 @@ public class Laboratorio1{
 		return uti;
 	}
 	//2
+	/**
+	*full the array pHome.
+	*<b>pre:<b>the user must enter an integer data.</b>
+	*<b>post:<b></b>
+	*@param an array and a variable integer.
+	*@return a array, contains the price of the materials.
+	*/
 	public static int[] HomeCenter(String name_materials[],int size) {
 		Scanner sc = new Scanner(System.in);
 		
@@ -109,6 +136,13 @@ public class Laboratorio1{
 		
 		return hc;
 	}
+	/**
+	*full the array pCentro.
+	*pre:<b>the user must enter an integer data.</b>
+	*post:<b></b>
+	*@param an array and a variable integer.
+	*@return a array, contains the price of the materials
+	*/
 	public static int[] FerreteriadelCentro(String name_materials[],int size) {
 		Scanner sc = new Scanner(System.in);
 		
@@ -121,6 +155,13 @@ public class Laboratorio1{
 		
 		return fdc;
 	}
+	/**
+	*full the array pBarrio.
+	*<b>pre:<b>the user must enter an integer data.</b>
+	*<b>post:<b></b>
+	*@param an array and a variable integer.
+	*@return a array, contains the price of the materials.
+	*/
 	public static int[] FerreteríadelBarrio(String name_materials[],int size) {
 		Scanner sc = new Scanner(System.in);
 		
@@ -134,6 +175,13 @@ public class Laboratorio1{
 		return fdb;
 	}
 	//3
+	/**
+	*It asks the user for a full piece of information, a value which will be useful later to know which work he wants to display.
+	*<b>pre:<b>the user must enter an integer data.</b>
+	*<b>post:<b></b>
+	*@param 
+	*@return variable integer, contains a numer which defines in which sector you live.
+	*/
 	public static int PropertyLocation(){
 		Scanner sc = new Scanner(System.in);
 		int loc = 0;
@@ -145,7 +193,13 @@ public class Laboratorio1{
 		
 		return loc;
 	}
-	
+	/**
+	*calculate total the price of the materials in HomeCenter.
+	*<b>pre:<b></b>
+	*post:
+	*@param a array of String.
+	*@return a variable integer, contains total the price.
+	*/
 	public static int priceHomeCenter(int pHome []){
 		Scanner sc = new Scanner(System.in);
 		
@@ -155,6 +209,13 @@ public class Laboratorio1{
 		}
 		return phc;
 	}
+	/**
+	*calculate total the price of the materials in Ferreteria del centro.
+	*pre:<b></b>
+	*post:<b></b>
+	*@param a array of String.
+	*@return a variable integer, contains total the price.
+	*/
 	public static int priceFerreteriadelCentro(int pCentro []){
 		Scanner sc = new Scanner(System.in);
 
@@ -164,6 +225,13 @@ public class Laboratorio1{
 		}
 		return pfdc;
 	}
+	/**
+	*calculate total the price of the materials in Ferreteria del barrio.
+	*pre:<b></b>
+	*post:<b></b>
+	*@param a array of String.
+	*@return a variable integer, contains total the price.
+	*/
 	public static int priceFerreteriadelBarrio(int pBarrio []){
 		Scanner sc = new Scanner(System.in);
 		
@@ -173,6 +241,12 @@ public class Laboratorio1{
 		}
 		return pfdb;
 	}
+	/**
+	*compare price, to know the cost including the address according to where it is located. It also gives the total value that it will cost to carry out the work, in HomeCenter.
+	*<b>post:<b></br>
+	*<b>post:<b></br>
+	*@param dos variables integer and one constant.
+	*/
 	public static void totalPriceHome(int location,int priceHome,int TOTAL_WORK){
 		Scanner sc = new Scanner(System.in);
 		
@@ -209,6 +283,12 @@ public class Laboratorio1{
 		System.out.println("The price of work in HomeCenter is: "+pth);
 		System.out.println("The price of work in HomeCenter IN TOTAL: "+total);
 	}
+	/**
+	*compare price, to know the cost including the address according to where it is located. It also gives the total value that it will cost to carry out the work, in Ferreteria del centro.
+	*pre:<b></b>
+	*post:<b></b>
+	*@param dos variables integer and one constant.
+	*/
 	
 	public static void totalPriceCentro(int location,int priceCentro,int TOTAL_WORK){
 		Scanner sc = new Scanner(System.in);
@@ -246,6 +326,12 @@ public class Laboratorio1{
 		System.out.println("The price of work in Ferreteria del centro is: "+ptc);
 		System.out.println("The price of work in Ferreteria del centro IN TOTAL: "+total);
 	}
+	/**
+	*compare price, to know the cost including the address according to where it is located. It also gives the total value that it will cost to carry out the work, in Ferreteria del barrio.
+	*pre:<b></br>
+	*post:<b></b>
+	*@param dos variables integer and one constant.
+	*/
 	public static void totalPriceBarrio(int location,int priceBarrio,int TOTAL_WORK){
 		Scanner sc = new Scanner(System.in);
 		
@@ -283,6 +369,12 @@ public class Laboratorio1{
 		System.out.println("The price of work in Ferreteria del barrio IN TOTAL: "+total);
 	}
 	//4
+	/**
+	*compares 3 arrays, data by data in the same position to know which of the 3 arrays contains the smallest value.
+	*pre:<b></br>
+	*post:<b></br>
+	*@param 3 string list of string and one string de of int.
+	*/
 	public static void bestPrice(int pHome[],int pBarrio [],int pCentro [],String name_materials []){
 		
 		String barrio = "Ferreteria del barrio";
@@ -297,23 +389,29 @@ public class Laboratorio1{
 		int []  bp= new int[name_materials.length];
 				System.out.println("------------------------------------------------------");
 		for(int i=0; i<pHome.length;i++){
+			if(pHome[i]==pBarrio[i]){
+				esta[i]=hb;
+				bp[i] = pHome[i];
+				if(pHome[i]==pCentro[i]){
+					esta[i]=todos;
+					bp[i] = pHome[i];
+				}
+			}
 			if(pHome[i]==pCentro[i]){
+				esta[i]=hc;
+				bp[i] = pHome[i];
 				if(pHome[i]==pBarrio[i]){
 					esta[i]=todos;
 					bp[i] = pHome[i];
 				}
 			}
-			if(pHome[i]==pBarrio[i]){
-				esta[i]=hb;
-				bp[i] = pHome[i];
-			}
-			if(pHome[i]==pCentro[i]){
-				esta[i]=hc;
-				bp[i] = pHome[i];
-			}
 			if(pCentro[i]==pBarrio[i]){
 				esta[i]=cb;
 				bp[i] = pCentro[i];
+				if (pHome[i]==pCentro[i]){
+					esta[i]=todos;
+					bp[i] = pHome[i];
+				}
 			}
 			
 			if (pHome[i]<pCentro[i]){
@@ -334,11 +432,18 @@ public class Laboratorio1{
 			}
 		}
 		for(int i=0; i<name_materials.length;i++){
-			System.out.println("For the material "+(name_materials[i])+" it is better to buy it in: "+(esta[i])+"el price is: "+(bp[i]));
+			System.out.println("For the material "+(name_materials[i])+" it is better to buy it in: "+(esta[i])+" el price is: "+(bp[i]));
 		}
 		
 	}
 	//5
+	/**
+	*calculates the size of an array, the array blackwork.
+	*<b>pre:<b></br>
+	*<b>post:<b></br>
+	*@param a string list of string.
+	*@return a variable integer, is variable is the size of an array.
+	*/
 	public static int sizeBlackWork(int utilization []){
 		int sizebw = 0;
 		for (int i=0; i<utilization.length;i++){
@@ -348,6 +453,13 @@ public class Laboratorio1{
 		}
 		return sizebw;
 	}
+	/**
+	*calculates the size of an array, the array whitework..
+	*<b>post:<b></br>
+	*<b>post:<b></br>
+	*@param a string list of string.
+	*@return a variable integer, is variable is the size of an array.
+	*/
 	public static int sizewhiteWork(int utilization []){
 		int sizeww = 0;
 		for (int i=0; i<utilization.length;i++){
@@ -357,6 +469,13 @@ public class Laboratorio1{
 		}
 		return sizeww;
 	}
+	/**
+	*calculates the size of an array, the array painting.
+	*<b>post:<b></br>
+	*<b>post:<b></br>
+	*@param a string list of string.
+	*@return a variable integer, is variable is the size of an array.
+	*/
 	public static int sizePainting(int utilization []){
 		int sizepp = 0;
 		for (int i=0; i<utilization.length;i++){
@@ -366,7 +485,13 @@ public class Laboratorio1{
 		}
 		return sizepp;
 	}
-	
+	/**
+	*fill the arrangement of the blackwork.
+	*<b>post:<b></br>
+	*<b>post:<b></br>
+	*@param a integer variable, integer variablenamed sizeb, a string list of string name_materials.
+	*@return a array of String. List of work blackwork.
+	*/
 	public static String[] typeUtilizationB(int utilization [],int sizeb,String name_materials[]){
 		String [] blackworkk = new String[sizeb];
 		for (int i=0; i<utilization.length;i++){
@@ -377,25 +502,46 @@ public class Laboratorio1{
 		}
 		return blackworkk;
 	}
+	/**
+	*fill the arrangement of the whitework.
+	*<b>post:<b></br>
+	*<b>post:<b></br>
+	*@param a integer variable, integer variablenamed sizew, a string list of string name_materials.
+	*@return a array of String. List of work whitework.
+	*/
 	public static String[] typeUtilizationw(int utilization [],int sizew,String name_materials[]){
 		String [] whiteworkk = new String[sizew];
 		for (int i=0; i<utilization.length;i++){
-			if(utilization[i]==1){
+			if(utilization[i]==2){
 				whiteworkk [i] = name_materials[i];
 			}
 		}
 		return whiteworkk;
 	}
+	/**
+	*fill the arrangement of the work painting.
+	*<b>post:<b></br>
+	*<b>post:<b></br>
+	*@param a integer variable, integer variablenamed sizep, a string list of string name_materials.
+	*@return a array of String. list of work painting
+	*/
 	public static String[] typeUtilizationp(int utilization [],int sizep,String name_materials[]){
 		String [] paintingg = new String[sizep];
-		int pos = 0;
+		
 		for (int i=0; i<name_materials.length;i++){
-			if(utilization[i]==1){
+			if(utilization[i]==3){
 				paintingg [i] = name_materials[i];
 			}
 		}
 		return paintingg;
 	}
+	/**
+	*It asks the user which work they want to see.
+	*<b>pre:the user must enter a whole number.</br>
+	*<b>post:<b></br>
+	*@param 
+	*@return a variable integer, her name is whole.
+	*/
 	public static int typeUtilizationMaterials(){
 		Scanner sc = new Scanner(System.in);
 		
@@ -409,23 +555,24 @@ public class Laboratorio1{
 		return to;
 	}
 	/**
-	*lee una variable entera, muestra por consola al usuario una lista de cadena String, dependiento el valor de la variable entera.
-	*pre:los array deben tener las listas que el usuario digite.
-	*post: 
-	*@param una lista de cadena de string(name_materials), variable entena,una lista de de cadena de String llamada blackwork,una lista de de cadena de String llamada whitework,una lista de de cadena de String llamada painting.
+	*reads an integer variable, shows the user a list of String by console, depending on the value of the integer variable.
+	*pre:the arrays must have the lists that the user types.
+	*<b>post:<b></br> 
+	*@param a string list of string name_materials, integer variable, a list of string of String called blackwork, a list of string of String called whitework, a list of string of String called painting.
 	*/
 	
-	public static void typeUtilizationMat(String name_materials[],int type,String blackwork [],String whitework[],String painting[]){
+	public static void typeUtilizationMat(String[] name_materials,int type,String[] blackwork,String[] whitework,String[] painting){
 		Scanner sc = new Scanner(System.in);
 		for (int i=0; i<name_materials.length;i++){
 			if(type==1){
-				System.out.println(blackwork[i]);
+				System.out.println("-"+(blackwork[i]));
 			}
-			if(type==2){
-				System.out.println(whitework[i]);
+			if(type==2){	
+				System.out.println("-"+(whitework[i]));	
 			}
 			if(type==3){
-				System.out.println(painting[i]);
+				System.out.println("-"+(painting[i]));
+				
 			}
 		}
 	}
